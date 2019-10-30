@@ -1,9 +1,7 @@
 import React from 'react';
 import 'typeface-roboto';
+import SearchButton from './SearchButton';
 import './App.css';
-import Button from '@material-ui/core/Button';
-import DescriptionIcon from '@material-ui/icons/Description';
-import Icon from '@material-ui/core/Icon';
 import { Container } from '@material-ui/core';
 
 const App: React.FC = () => {
@@ -12,7 +10,7 @@ const App: React.FC = () => {
       <Container>
 
       <header className="App-header">
-      <Button variant="contained" color="primary" className="scrapeBtn" startIcon={<DescriptionIcon />}>Search</Button>
+      <SearchButton/>
       </header>
 
       </Container>
