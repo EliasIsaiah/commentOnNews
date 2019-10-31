@@ -1,14 +1,35 @@
 import React, { Component, MouseEvent } from 'react';
-// import axios from 'axios';
-//import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import DescriptionIcon from '@material-ui/icons/Description';
+// import { number } from 'prop-types';
+const cheerio = require('cheerio');
 
 class SearchButton extends Component {
 
     handleClick(event: MouseEvent) {
         event.preventDefault();
-        alert(event.currentTarget.tagName);
+        axios.get("https://www.autoblog.com/").then(function (response) {
+
+            console.log(response);
+            // Then, we load that into cheerio and save it to $ for a shorthand selector
+            // type Results = {
+
+            //     title: string[]
+            // }
+            let results: any[] = [];
+            const $ = cheerio.load(response.data);
+
+            $("h6.record-heading a span").each((i: any, element: any) => {
+                const title = $(element).text();
+                results.push({
+                    title: title
+                })
+
+            })
+            console.log("results", results);
+        }).catch(err => { throw err })
+
     }
 
     render() {
