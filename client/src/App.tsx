@@ -1,6 +1,7 @@
 import React from 'react';
 import 'typeface-roboto';
-import SearchButton from './SearchButton';
+import SearchButton from './components/SearchButton/SearchButton';
+import ArticleCard from './components/ArticleCard/ArticleCard';
 import './App.css';
 import { Container } from '@material-ui/core';
 
@@ -11,6 +12,7 @@ const App: React.FC = () => {
 
       <header className="App-header">
       <SearchButton/>
+      <ArticleCard body="eatus peetus" />
       </header>
 
       </Container>
