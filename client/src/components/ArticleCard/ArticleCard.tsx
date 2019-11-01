@@ -10,18 +10,25 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     card: {
-        maxWidth: 345,
+        width: "100%",
+        maxWidth: "600px",
+        margin: "1rem"
     },
     media: {
         height: 140,
     },
 });
 
-export default function MediaCard(props:string) {
+interface Props {
+    body: string,
+    id?: string
+}
+
+export default function MediaCard(props: Props) {
     const classes = useStyles();
 
     return (
-        <Card className={classes.card}>
+        <Card className={[classes.card, props.id].join('')}>
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
@@ -33,17 +40,14 @@ export default function MediaCard(props:string) {
                         Lizard
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {props}
+                        {props.body}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
                 <Button size="small" color="primary">
-                    Share
-        </Button>
-                <Button size="small" color="primary">
-                    Learn More
-        </Button>
+                    Comments
+                </Button>
             </CardActions>
         </Card>
     );

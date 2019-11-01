@@ -15,5 +15,5 @@ app.use("/api", require("../routes/apiRoutes"));
 
 // Turn on that server!
 app.listen(PORT, () => {
-  console.log('App listening on port 3000');
+  console.log(`App listening on port ${PORT}`);
 });
