@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,7 @@
     "mongoose": "^5.7.7",
     "path": "^0.12.7"
   },
-  "proxy": "http://localhost:3002"
+  "devDependencies": {
+    "concurrently": "^5.0.0"
+  }
 }

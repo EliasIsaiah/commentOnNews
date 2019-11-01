@@ -1,20 +1,20 @@
-// var db = require("../models");
+var db = require("../models");
 let routes = require("express").Router();
 
-routes.get("/", (req, res) => {
-    // db.character
-    //     .findAll({
-    //         include: [db.armor, db.weapon, db.race, db.classes]
-    //     })
-    //     .then(data => {
-    //         res.json(data);
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send("server error");
-    //         console.log("err", err);
-    //         throw err;
-    //     });
-    res.send("api route")
-});
+// Route for getting all Articles from the db
+routes.get("/articles", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Article.find({})
+      .then(function(dbArticle) {
+        // If we were able to successfully find Articles, send them back to the client
+        // res.json(dbArticle);
+        res.send("helo api");
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+        throw err;
+      });
+  });
 
 module.exports = routes;
