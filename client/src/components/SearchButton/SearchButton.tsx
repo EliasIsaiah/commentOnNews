@@ -5,6 +5,9 @@ import DescriptionIcon from '@material-ui/icons/Description';
 // import { number } from 'prop-types';
 const cheerio = require('cheerio');
 
+//stateful functional component:
+//const [buttonData, updateButtonData] = useState(null);
+
 class SearchButton extends Component {
 
     handleClick(event: MouseEvent) {
