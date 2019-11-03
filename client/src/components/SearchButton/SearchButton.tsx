@@ -12,24 +12,42 @@ class SearchButton extends Component {
 
     handleClick(event: MouseEvent) {
         event.preventDefault();
-        axios.get("https://www.autoblog.com/").then(function (response) {
+
+        let results: any[] = [];
+
+        axios.get("https://www.autoblog.com/").then((response) => {
 
             console.log(response);
-            let results: any[] = [];
             const $ = cheerio.load(response.data);
 
-            $("h6.record-heading a span").each((i: any, element: any) => {
-                const title = $(element).text();
+            $("div.record_details").each((i: any, element: any) => {
+                const headline = $(element).find("h6.record-heading a span").text().trim();
+                const summary = $(element).find("p.subTitle").text().trim();
+                const url = $(element).find("h6.record-heading a").attr("href");
+                // const photoURL = $(element).find("a.record_image img").attr("src"); //broken
                 results.push({
-                    title: title
+                    headline,
+                    summary,
+                    url,
+                    // photoURL //broken
                 })
             })
             console.log("results", results);
-        }).catch(err => { throw err })
+        }).then((data) => {
 
-        axios.get("/api/articles").then( (data) => {
-            console.log(data);
-        })
+            console.log("data from scrape", data);
+
+            axios.post("/api/articles", results).then((results) => {
+
+                console.log("api post results", results);
+
+            }).catch((error) => {
+
+                console.log(error);
+                
+                throw error;
+            })
+        }).catch(err => { throw err })
 
     }
 
