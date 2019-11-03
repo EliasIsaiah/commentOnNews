@@ -1,8 +1,12 @@
+// TODO
+// POST cheerio data to mongo db
+// add comment functionality to articles
+// take care of pushing "scrape" multiple times causing duplicates (DROP database?)
+
 import React from 'react';
 import 'typeface-roboto';
 import SearchButton from './components/SearchButton/SearchButton';
 import ArticleCard from './components/ArticleCard/ArticleCard';
-import Divider from './components/Divider';
 import './App.css';
 import { Container } from '@material-ui/core';
 
@@ -13,14 +17,6 @@ const App: React.FC = () => {
 
       <header className="App-header">
       <SearchButton/>
-      <Divider />
-      <ArticleCard body="eatus peetus" />
-      <ArticleCard body="eatus peetus" />
-      <ArticleCard body="eatus peetus" />
-      <ArticleCard body="eatus peetus" />
-      <ArticleCard body="eatus peetus" />
-      <ArticleCard body="eatus peetus" />
-      <ArticleCard body="eatus peetus" />
       <ArticleCard body="eatus peetus" />
       </header>
 

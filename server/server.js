@@ -12,7 +12,7 @@ mongoose.connect("mongodb+srv://admin:admin@cluster0-otea6.mongodb.net/articles?
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'client','public','index.html'));
+  res.sendFile(path.join(__dirname, '..', 'client','build','index.html'));
 });
 
 app.use("/api", require("../routes/apiRoutes"));

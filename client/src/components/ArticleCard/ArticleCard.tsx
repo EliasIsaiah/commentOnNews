@@ -28,7 +28,7 @@ export default function MediaCard(props: Props) {
     const classes = useStyles();
 
     return (
-        <Card className={[classes.card, props.id].join('')}>
+        <Card id = {props.id} className={classes.card}>
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
