@@ -24,6 +24,10 @@ class SearchButton extends Component {
             console.log("results", results);
         }).catch(err => { throw err })
 
+        axios.get("/api/articles").then( (data) => {
+            console.log(data);
+        })
+
     }
 
     render() {
