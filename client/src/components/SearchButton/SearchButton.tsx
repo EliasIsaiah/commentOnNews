@@ -8,46 +8,50 @@ const cheerio = require('cheerio');
 //stateful functional component:
 //const [buttonData, updateButtonData] = useState(null);
 
-class SearchButton extends Component {
+interface Props {
+    scrapeFunc: () => void;
+}
+
+class SearchButton extends Component<Props> {
 
     handleClick(event: MouseEvent) {
         event.preventDefault();
+        this.props.scrapeFunc();
 
-        let results: any[] = [];
 
-        axios.get("https://www.autoblog.com/").then((response) => {
+        // axios.get("https://www.autoblog.com/").then((response) => {
 
-            console.log(response);
-            const $ = cheerio.load(response.data);
+        //     console.log(response);
+        //     const $ = cheerio.load(response.data);
 
-            $("div.record_details").each((i: any, element: any) => {
-                const headline = $(element).find("h6.record-heading a span").text().trim();
-                const summary = $(element).find("p.subTitle").text().trim();
-                const url = $(element).find("h6.record-heading a").attr("href");
-                // const photoURL = $(element).find("a.record_image img").attr("src"); //broken
-                results.push({
-                    headline,
-                    summary,
-                    url,
-                    // photoURL //broken
-                })
-            })
-            console.log("results", results);
-        }).then((data) => {
+        //     $("div.record_details").each((i: any, element: any) => {
+        //         const headline = $(element).find("h6.record-heading a span").text().trim();
+        //         const summary = $(element).find("p.subTitle").text().trim();
+        //         const url = $(element).find("h6.record-heading a").attr("href");
+        //         // const photoURL = $(element).find("a.record_image img").attr("src"); //broken
+        //         results.push({
+        //             headline,
+        //             summary,
+        //             url,
+        //             // photoURL //broken
+        //         })
+        //     })
+        //     console.log("results", results);
+        // }).then((data) => {
 
-            console.log("data from scrape", data);
+        //     console.log("data from scrape", data);
 
-            axios.post("/api/articles", results).then((results) => {
+        //     axios.post("/api/articles", results).then((results) => {
 
-                console.log("api post results", results);
+        //         console.log("api post results", results);
 
-            }).catch((error) => {
+        //     }).catch((error) => {
 
-                console.log(error);
+        //         console.log(error);
                 
-                throw error;
-            })
-        }).catch(err => { throw err })
+        //         throw error;
+        //     })
+        // }).catch(err => { throw err })
 
     }
 
