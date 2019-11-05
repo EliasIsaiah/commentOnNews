@@ -12,63 +12,24 @@ interface Props {
     scrapeFunc: () => void;
 }
 
-class SearchButton extends Component<Props> {
+export default function SearchButton(props:Props) {
 
-    handleClick(event: MouseEvent) {
+    function handleClick(event: MouseEvent) {
+        console.log("this.props", props);
         event.preventDefault();
-        this.props.scrapeFunc();
-
-
-        // axios.get("https://www.autoblog.com/").then((response) => {
-
-        //     console.log(response);
-        //     const $ = cheerio.load(response.data);
-
-        //     $("div.record_details").each((i: any, element: any) => {
-        //         const headline = $(element).find("h6.record-heading a span").text().trim();
-        //         const summary = $(element).find("p.subTitle").text().trim();
-        //         const url = $(element).find("h6.record-heading a").attr("href");
-        //         // const photoURL = $(element).find("a.record_image img").attr("src"); //broken
-        //         results.push({
-        //             headline,
-        //             summary,
-        //             url,
-        //             // photoURL //broken
-        //         })
-        //     })
-        //     console.log("results", results);
-        // }).then((data) => {
-
-        //     console.log("data from scrape", data);
-
-        //     axios.post("/api/articles", results).then((results) => {
-
-        //         console.log("api post results", results);
-
-        //     }).catch((error) => {
-
-        //         console.log(error);
-                
-        //         throw error;
-        //     })
-        // }).catch(err => { throw err })
-
+        props.scrapeFunc();
     }
 
-    render() {
-        return (
+    return (
 
-            <Button
-                variant="contained"
-                color="primary"
-                className={"scrapeBtn"}
-                startIcon={< DescriptionIcon />}
-                onClick={this.handleClick}
+        <Button
+            variant="contained"
+            color="primary"
+            className={"scrapeBtn"}
+            startIcon={< DescriptionIcon />}
+            onClick={handleClick}
 
-            > Search
+        > Search
         </Button >
-        )
-    }
+    )
 }
-
-export default SearchButton;

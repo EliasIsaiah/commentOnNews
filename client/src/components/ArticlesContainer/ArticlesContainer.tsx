@@ -10,7 +10,7 @@ interface Article {
   }
 
 interface Props {
-    articles: Article[]
+    articles: any[]
 }
 
 
@@ -20,7 +20,8 @@ export function ArticlesContainer(props: Props) {
         <>
             {/* <SearchButton /> */}
             {props.articles && props.articles.map((article) => {
-                return <ArticleCard headline="Germany to boost EV subsidies as first Volkswagen ID.3s roll off the line" summary="The government grants would be $5,000 and up" />
+                return <ArticleCard key={article._id} headline={article.headline} summary={article.summary} />
+                // return <ArticleCard key={Math.random.toString()} headline="Germany to boost EV subsidies as first Volkswagen ID.3s roll off the line" summary="The government grants would be $5,000 and up" />
             })}
         </>
     );
