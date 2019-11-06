@@ -10,7 +10,7 @@ routes.get("/articles", function (req, res) {
     .then(function (dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
       // res.json(dbArticle);
-      res.json(console.log(dbArticle));
+      res.json(dbArticle);
     })
     .catch(function (err) {
       // If an error occurred, send it to the client
@@ -33,6 +33,43 @@ routes.post("/articles", function (req, res) {
       // If an error occurred, send it to the client
       res.json(err);
       throw err;
+    });
+});
+
+routes.post("/articles/:id", function (req, res) {
+  // Create a new comment and pass the req.body to the entry
+  db.Comment.create(req.body)
+    .then(function (dbComment) {
+      // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: dbComment._id } }, { new: true });
+    })
+    .then(function (dbArticle) {
+      // If we were able to successfully update an Article, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function (err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+routes.get("/articles/:id", function (req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Article.findOne({ _id: req.params.id })
+    // ..and populate all of the comments associated with it
+    .populate({
+      path: 'comments',
+      model: 'Comment'
+    })
+    .then(function (dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function (err) {
+      // If an error occurred, send it to the client
+      res.json(err);
     });
 });
 
@@ -63,10 +100,10 @@ routes.get("/scrape", function (req, res) {
           // If an error occurred, log it
           console.log(err);
         });
-    }).catch((error) => {throw error});
-    }).catch((error) => {throw error});
+    }).catch((error) => { throw error });
+  }).catch((error) => { throw error });
 
-    // Create a new Article using the `result` object built from scraping
+  // Create a new Article using the `result` object built from scraping
 
   // Send a message to the client
   res.send("Scrape Complete");

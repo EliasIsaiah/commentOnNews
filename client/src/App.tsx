@@ -14,32 +14,35 @@ interface MyState {
 class App extends React.Component<{}, MyState> {
 
   state = {
-    articles: []
+    articles: [{}]
   }
   
   getArticles = () => {
-    this.setState({
-      articles: 
-      [{
-        _id: "1",
-        headline: 'Grab',
-        summary: 'Protect',
-        url: 'https://www.autoblog.com/gaming-guide/',
-      },
-      {
-        _id: "2",
-        headline: 'Introducing',
-        summary: 'Everything',
-        url: 'https://www.autoblog.com/gaming-guide/',
-      }]
+    axios.get('/api/articles').then((response:any) => {
+
+      this.setState({
+        articles: response.data
+      })
+      console.log("get articles!");
+    }).catch((err) => {
+      console.log("error", err);
+      throw err;
     })
-    console.log("get articles!");
     // return articles;
   }
 
-  componentDidMount(){
-    this.getArticles();
+  sendComment = (id:string) => {
+    axios.post(`/api/articles/${id}`).then((response:any) => {
+      console.log("sendComment response", response);
+    }).catch((err) => {
+      console.log("error", err);
+      throw err;
+    })
   }
+
+  // componentDidMount(){
+  //   this.getArticles();
+  // }
 
   render() {
     console.log("state", this.state)
@@ -49,8 +52,6 @@ class App extends React.Component<{}, MyState> {
           <header className="App-header">
             <SearchButton scrapeFunc={this.getArticles} />
             <ArticlesContainer articles={this.state.articles} />
-            <ArticleCard headline="Germany to boost EV subsidies as first Volkswagen ID.3s roll off the line" summary="The government grants would be $5,000 and up" />
-
           </header>
 
         </Container>

@@ -24,6 +24,7 @@ const useStyles = makeStyles({
 interface Props {
     headline: string,
     summary: string,
+    comments?: string[],
     id?: string
 }
 
@@ -45,7 +46,8 @@ export default function MediaCard(props: Props) {
                 <Typography variant="body2" color="textSecondary" component="p">
                     {props.summary}
                 </Typography>
-                <Comments comments={["This article sucks!", "I actually like this one a lot.", "Your opinion is garbage."]} />
+                {<Comments comments={props.comments} />}
+
             </CardContent>
             {/* </CardActionArea> */}
             <CardActions>

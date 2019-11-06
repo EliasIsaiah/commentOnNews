@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-    comments: string[]
+    comments?: string[]
 }
 
 export default function MediaCard(props: Props) {
