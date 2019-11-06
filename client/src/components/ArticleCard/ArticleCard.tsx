@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -25,11 +25,19 @@ interface Props {
     headline: string,
     summary: string,
     comments?: string[],
-    id?: string
+    id?: string,
+    sendComment: (id:string, body:string) => void,
+    showComments: (id:string) => any
 }
 
 export default function MediaCard(props: Props) {
     const classes = useStyles();
+
+    function showCommentsHandler (event: MouseEvent) {
+        console.log("showCommentsHandler clicked");
+        event.preventDefault();
+        props.comments = props.showComments("5dc31ec93e455f3b0a2a211e");
+    }
 
     return (
         <Card id={props.id} className={classes.card}>
@@ -46,12 +54,16 @@ export default function MediaCard(props: Props) {
                 <Typography variant="body2" color="textSecondary" component="p">
                     {props.summary}
                 </Typography>
-                {<Comments comments={props.comments} />}
+                {<Comments comments={props.comments} sendComment={props.sendComment} />}
 
             </CardContent>
             {/* </CardActionArea> */}
             <CardActions>
-                <Button size="small" color="primary">
+                <Button 
+                size="small" 
+                color="primary"
+                onClick={showCommentsHandler}
+                >
                     Comments
                 </Button>
             </CardActions>

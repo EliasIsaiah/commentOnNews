@@ -6,15 +6,16 @@ const cheerio = require('cheerio');
 // Route for getting all Articles from the db
 routes.get("/articles", function (req, res) {
   // Grab every document in the Articles collection
+  console.log("get articles!");
   db.Article.find({})
-    .then(function (dbArticle) {
+    .then((dbArticle) => {
       // If we were able to successfully find Articles, send them back to the client
       // res.json(dbArticle);
       res.json(dbArticle);
     })
-    .catch(function (err) {
+    .catch((err) => {
       // If an error occurred, send it to the client
-      res.json(err);
+      res.send(err);
       throw err;
     });
 });
@@ -100,7 +101,7 @@ routes.get("/scrape", function (req, res) {
           // If an error occurred, log it
           console.log(err);
         });
-    }).catch((error) => { throw error });
+    })
   }).catch((error) => { throw error });
 
   // Create a new Article using the `result` object built from scraping

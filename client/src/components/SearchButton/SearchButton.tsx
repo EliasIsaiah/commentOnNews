@@ -25,7 +25,7 @@ export default function SearchButton(props:Props) {
         <Button
             variant="contained"
             color="primary"
-            className={"scrapeBtn"}
+            className="scrapeBtn"
             startIcon={< DescriptionIcon />}
             onClick={handleClick}
 

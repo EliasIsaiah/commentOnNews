@@ -16,27 +16,73 @@ class App extends React.Component<{}, MyState> {
   state = {
     articles: [{}]
   }
-  
+
   getArticles = () => {
-    axios.get('/api/articles').then((response:any) => {
+    axios.get('/api/articles').then((response: any) => {
 
       this.setState({
         articles: response.data
       })
-      console.log("get articles!");
+      console.log("get articles response", response.data);
     }).catch((err) => {
       console.log("error", err);
       throw err;
     })
     // return articles;
-  }
+  };
 
-  sendComment = (id:string) => {
-    axios.post(`/api/articles/${id}`).then((response:any) => {
+  sendComment = (id: string, body: string) => {
+
+    axios.post(`/api/articles/${id}`, {
+
+      body: body
+
+    }).then((response: any) => {
+
       console.log("sendComment response", response);
+
+      this.getArticles();
+
     }).catch((err) => {
+
       console.log("error", err);
+
       throw err;
+
+    })
+  };
+
+  // showComments = async (id: string) => {
+  //   try {
+
+  //     let res = await axios.get(`/api/articles/${id}`)
+  //     let comments = res.data;
+  //     this.getArticles();
+
+  //     return comments;
+
+  //   } catch (error) {
+
+  //     console.log(error);
+  //     throw error;
+  //   }
+  // }
+
+  showComments = (id: string) => {
+	  
+    axios.get(`/api/articles/${id}`, {
+		
+    }).then((response: any) => {
+		
+      console.log("sendComment response", response);
+      
+      return response.data;
+		
+    }).catch((err) => {
+		
+      console.log("error", err);
+      // throw err;
+      return err.message;
     })
   }
 
@@ -51,7 +97,7 @@ class App extends React.Component<{}, MyState> {
         <Container maxWidth="lg">
           <header className="App-header">
             <SearchButton scrapeFunc={this.getArticles} />
-            <ArticlesContainer articles={this.state.articles} />
+            <ArticlesContainer articles={this.state.articles} sendComment={this.sendComment} showComments={this.showComments} />
           </header>
 
         </Container>
