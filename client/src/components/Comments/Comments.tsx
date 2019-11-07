@@ -49,11 +49,11 @@ export default function MediaCard(props: Props) {
     return (
         <Card className={classes.card}>
             <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
+                {/* <Typography variant="body2" color="textSecondary" component="p"> */}
                     {props.comments && props.comments.map((articleComment: string, i: number) => {
                         return <Comment key={i} body={articleComment} />
                     })}
-                </Typography>
+                {/* </Typography> */}
                 <NewComment sendComment={props.sendComment}/>
             </CardContent>
             <CardActions>

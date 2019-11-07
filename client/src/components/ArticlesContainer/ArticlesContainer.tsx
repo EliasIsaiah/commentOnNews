@@ -12,7 +12,7 @@ interface Article {
 interface Props {
     articles: any[]
     sendComment: (id:string, body:string) => void;
-    showComments: (id:string) => any;
+    // showComments: (id:string) => any;
 }
 
 
@@ -26,8 +26,9 @@ export function ArticlesContainer(props: Props) {
                 headline={article.headline} 
                 summary={article.summary} 
                 comments={article.comments}
-                sendComment={props.sendComment} 
-                showComments={props.showComments}
+                sendComment={props.sendComment}
+                _id={article._id} 
+                // showComments={props.showComments}
                 />
             })}
         </>

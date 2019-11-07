@@ -68,23 +68,24 @@ class App extends React.Component<{}, MyState> {
   //   }
   // }
 
-  showComments = (id: string) => {
-	  
-    axios.get(`/api/articles/${id}`, {
-		
-    }).then((response: any) => {
-		
-      console.log("sendComment response", response);
-      
-      return response.data;
-		
-    }).catch((err) => {
-		
-      console.log("error", err);
-      // throw err;
-      return err.message;
-    })
-  }
+  // showComments = (id: string) => {
+
+  //   axios.get(`/api/articles/${id}`, {
+
+  //   }).then((response: any) => {
+
+  //     console.log("showComment response", response);
+  //     console.log("comments", response.data.comments);
+
+  //     return response.data.comments;
+
+  //   }).catch((err) => {
+
+  //     console.log("error", err);
+  //     // throw err;
+  //     return err.message;
+  //   })
+  // }
 
   // componentDidMount(){
   //   this.getArticles();
@@ -97,7 +98,7 @@ class App extends React.Component<{}, MyState> {
         <Container maxWidth="lg">
           <header className="App-header">
             <SearchButton scrapeFunc={this.getArticles} />
-            <ArticlesContainer articles={this.state.articles} sendComment={this.sendComment} showComments={this.showComments} />
+            <ArticlesContainer articles={this.state.articles} sendComment={this.sendComment} />
           </header>
 
         </Container>

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "startall": "concurrently \"nodemon server/server --ignore 'client/*'\" \"npm run client\""
   },
   "repository": {
     "type": "git",

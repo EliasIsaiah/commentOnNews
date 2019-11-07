@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { FunctionComponent, useState, MouseEvent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Comments from '../Comments/Comments';
+import axios from 'axios';
 
 const useStyles = makeStyles({
     card: {
@@ -25,22 +26,46 @@ interface Props {
     headline: string,
     summary: string,
     comments?: string[],
-    id?: string,
-    sendComment: (id:string, body:string) => void,
-    showComments: (id:string) => any
+    _id?: string,
+    
+    sendComment: (_id: string, body: string) => void,
+    // showComments: (id:string) => any
 }
 
-export default function MediaCard(props: Props) {
+
+const ArticleCard:FunctionComponent<Props> = (props:Props) => {
+    
+    const [comments, setComments] = useState([]);
+    
     const classes = useStyles();
 
-    function showCommentsHandler (event: MouseEvent) {
+    const showComments = (_id: string) => {
+
+        axios.get(`/api/articles/${_id}`, {
+
+        }).then((response: any) => {
+
+            console.log("showComment response", response);
+            console.log("comments", response.data.comments);
+            
+            setComments(response.data.comments);
+
+        }).catch((err) => {
+
+            console.log("error", err);
+            // throw err;
+            return err.message;
+        })
+    }
+    function showCommentsHandler(event: MouseEvent) {
         console.log("showCommentsHandler clicked");
         event.preventDefault();
-        props.comments = props.showComments("5dc31ec93e455f3b0a2a211e");
+        console.log("props._id exists!", props._id);
+        props._id && showComments(props._id);
     }
 
     return (
-        <Card id={props.id} className={classes.card}>
+        <Card id={props._id} className={classes.card}>
             {/* <CardActionArea> */}
             {/* <CardMedia
                     className={classes.media}       //no image for now
@@ -54,15 +79,16 @@ export default function MediaCard(props: Props) {
                 <Typography variant="body2" color="textSecondary" component="p">
                     {props.summary}
                 </Typography>
-                {<Comments comments={props.comments} sendComment={props.sendComment} />}
+                {comments.length ?
+                <Comments comments={comments} sendComment={props.sendComment} /> : <></>}
 
             </CardContent>
             {/* </CardActionArea> */}
             <CardActions>
-                <Button 
-                size="small" 
-                color="primary"
-                onClick={showCommentsHandler}
+                <Button
+                    size="small"
+                    color="primary"
+                    onClick={showCommentsHandler}
                 >
                     Comments
                 </Button>
@@ -70,3 +96,5 @@ export default function MediaCard(props: Props) {
         </Card>
     );
 }
+
+export default ArticleCard;
