@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "server": "nodemon server.js",
-    "start:dev": "nodemon --ignore 'client/*' & npm run client"
+    "server": "nodemon server/server.js",
+    "client": "cd client && npm start",
+    "start:dev": "concurrently \"nodemon server/server.js --ignore client/*\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "concurrently": "^5.0.0"
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.19.4"
   }
 }

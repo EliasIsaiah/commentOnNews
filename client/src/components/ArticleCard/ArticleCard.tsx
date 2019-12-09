@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Comments from '../Comments/Comments';
+import NewComment from '../NewComment/NewComment';
 import axios from 'axios';
 
 const useStyles = makeStyles({
@@ -80,10 +81,11 @@ const ArticleCard:FunctionComponent<Props> = (props:Props) => {
                     {props.summary}
                 </Typography>
                 {comments.length ?
-                <Comments comments={comments} sendComment={props.sendComment} /> : <></>}
+                <Comments comments={comments} /> : <></>}
 
             </CardContent>
             {/* </CardActionArea> */}
+            <NewComment sendComment={props.sendComment} />
             <CardActions>
                 <Button
                     size="small"

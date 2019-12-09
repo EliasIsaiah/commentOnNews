@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
     comments?: string[],
-    sendComment: (id:string, body:string) => void;
 }
 
 export default function MediaCard(props: Props) {
@@ -54,7 +53,6 @@ export default function MediaCard(props: Props) {
                         return <Comment key={i} body={articleComment.body} />
                     })}
                 {/* </Typography> */}
-                <NewComment sendComment={props.sendComment}/>
             </CardContent>
             <CardActions>
                 <Button size="small" color="primary">

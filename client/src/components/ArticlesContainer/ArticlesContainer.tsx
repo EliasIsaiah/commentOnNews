@@ -27,7 +27,7 @@ export function ArticlesContainer(props: Props) {
                 summary={article.summary} 
                 comments={article.comments}
                 sendComment={props.sendComment}
-                _id={article._id} 
+                _id={article._id}
                 // showComments={props.showComments}
                 />
             })}

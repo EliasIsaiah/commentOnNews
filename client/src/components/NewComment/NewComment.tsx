@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { FunctionComponent, useState, MouseEvent, ChangeEvent } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -11,17 +11,21 @@ interface Props {
     sendComment: (id: string, body: string) => void;
 }
 
+// const handleChange(event:ChangeEvent) {
+    
+// }
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
 
         textField: {
-            margin: "auto",
+            margin: "0 1rem 0 1rem",
             width: "100%",
         }
     })
 );
 
-export default function MediaCard(props: Props) {
+const MediaCard:FunctionComponent<Props> = (props: Props) => {
     const classes = useStyles();
 
     function handleClick(event: MouseEvent) {
@@ -48,3 +52,5 @@ export default function MediaCard(props: Props) {
         </>
     );
 }
+
+export default MediaCard;
