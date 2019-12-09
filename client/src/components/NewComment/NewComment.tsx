@@ -8,12 +8,12 @@ import Button from '@material-ui/core/Button';
 //<button class="hideComments" />
 
 interface Props {
-    sendComment: (id: string, body: string) => void;
+    sendComment: (id: string, body: string) => void,
+    comment?: string,
+    _id?: string;
 }
 
-// const handleChange(event:ChangeEvent) {
-    
-// }
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,13 +25,20 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const MediaCard:FunctionComponent<Props> = (props: Props) => {
+const MediaCard: FunctionComponent<Props> = (props: Props) => {
+    const [comment, setComment] = useState<string>("");
+
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
+        console.log("changeHandler triggered!", event.target.value);
+        setComment(event.target.value)
+    }
+
     const classes = useStyles();
 
     function handleClick(event: MouseEvent) {
         console.log("this.props", props);
         event.preventDefault();
-        props.sendComment("5dc31ec93e455f3b0a2a211e", "BODY test body");
+        props._id && props.sendComment(props._id, comment);
     };
 
     return (
@@ -41,6 +48,7 @@ const MediaCard:FunctionComponent<Props> = (props: Props) => {
                 className={classes.textField}
                 label="New Comment"
                 margin="normal"
+                onChange={handleChange}
             />
             <Button
                 variant="contained"

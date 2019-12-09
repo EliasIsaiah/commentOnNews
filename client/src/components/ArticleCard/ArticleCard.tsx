@@ -1,10 +1,8 @@
 import React, { FunctionComponent, useState, MouseEvent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Comments from '../Comments/Comments';
@@ -67,12 +65,6 @@ const ArticleCard:FunctionComponent<Props> = (props:Props) => {
 
     return (
         <Card id={props._id} className={classes.card}>
-            {/* <CardActionArea> */}
-            {/* <CardMedia
-                    className={classes.media}       //no image for now
-                    image="/test.jpg"
-                    title="Contemplative Reptile"
-                /> */}
             <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
                     {props.headline}
@@ -84,8 +76,8 @@ const ArticleCard:FunctionComponent<Props> = (props:Props) => {
                 <Comments comments={comments} /> : <></>}
 
             </CardContent>
-            {/* </CardActionArea> */}
-            <NewComment sendComment={props.sendComment} />
+
+            <NewComment sendComment={props.sendComment} _id={props._id} />
             <CardActions>
                 <Button
                     size="small"
