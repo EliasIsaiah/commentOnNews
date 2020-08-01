@@ -26,16 +26,16 @@ interface Props {
     summary: string,
     comments?: string[],
     _id?: string,
-    
+
     sendComment: (_id: string, body: string) => void,
-    // showComments: (id:string) => any
 }
 
 
-const ArticleCard:FunctionComponent<Props> = (props:Props) => {
-    
+const ArticleCard: FunctionComponent<Props> = (props: Props) => {
+
     const [comments, setComments] = useState([]);
-    
+    const [commentsVisible, setCommentsVisible] = useState(false);
+
     const classes = useStyles();
 
     const showComments = (_id: string) => {
@@ -46,7 +46,7 @@ const ArticleCard:FunctionComponent<Props> = (props:Props) => {
 
             console.log("showComment response", response);
             console.log("comments", response.data.comments);
-            
+
             setComments(response.data.comments);
 
         }).catch((err) => {
@@ -57,10 +57,9 @@ const ArticleCard:FunctionComponent<Props> = (props:Props) => {
         })
     }
     function showCommentsHandler(event: MouseEvent) {
-        console.log("showCommentsHandler clicked");
         event.preventDefault();
-        console.log("props._id exists!", props._id);
         props._id && showComments(props._id);
+        setCommentsVisible(!commentsVisible);
     }
 
     return (
@@ -72,8 +71,8 @@ const ArticleCard:FunctionComponent<Props> = (props:Props) => {
                 <Typography variant="body2" color="textSecondary" component="p">
                     {props.summary}
                 </Typography>
-                {comments.length ?
-                <Comments comments={comments} /> : <></>}
+                {comments.length && commentsVisible ?
+                    <Comments comments={comments} /> : <></>}
 
             </CardContent>
 
@@ -84,7 +83,7 @@ const ArticleCard:FunctionComponent<Props> = (props:Props) => {
                     color="primary"
                     onClick={showCommentsHandler}
                 >
-                    Comments
+                    {commentsVisible ? "Hide Comments" : "Show Comments"}
                 </Button>
             </CardActions>
         </Card>
